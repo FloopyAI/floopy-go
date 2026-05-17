@@ -6,6 +6,13 @@ project adheres to [Semantic Versioning](https://semver.org/).
 
 Releases are produced by `release-please` from Conventional Commits.
 
+## [0.2.0](https://github.com/FloopyAI/floopy-go/compare/floopy-go-v0.1.0...floopy-go-v0.2.0) (2026-05-17)
+
+
+### Added
+
+* publish go sdk ([6703352](https://github.com/FloopyAI/floopy-go/commit/6703352dcf26fef0302b6e45d1a3d6a8f3266dd5))
+
 ## [Unreleased]
 
 ### Added
