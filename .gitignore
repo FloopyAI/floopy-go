@@ -1,0 +1,25 @@
+# Binaries / build output
+*.exe
+*.test
+*.out
+/dist/
+/bin/
+
+# Go workspace files (kept out of the published module)
+go.work
+go.work.sum
+
+# Coverage
+coverage.txt
+coverage.out
+profile.cov
+
+# Secrets / local env
+.env
+.env.local
+.env.*.local
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
