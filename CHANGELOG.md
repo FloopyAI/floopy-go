@@ -6,6 +6,13 @@ project adheres to [Semantic Versioning](https://semver.org/).
 
 Releases are produced by `release-please` from Conventional Commits.
 
+## [0.2.1](https://github.com/FloopyAI/floopy-go/compare/floopy-go-v0.2.0...floopy-go-v0.2.1) (2026-05-17)
+
+
+### Chore
+
+* release 0.2.1 ([df115a9](https://github.com/FloopyAI/floopy-go/commit/df115a9db0cefd95dd66855715b61fb1c5c583e4))
+
 ## [0.2.0](https://github.com/FloopyAI/floopy-go/compare/floopy-go-v0.1.0...floopy-go-v0.2.0) (2026-05-17)
 
 
