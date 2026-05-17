@@ -34,7 +34,6 @@ type DecisionListPage struct {
 }
 
 // DecisionListParams filters DecisionsService.List / .Pages / .Iterate. Zero
-// values are omitted.
 type DecisionListParams struct {
 	SessionID string
 	From      string // RFC3339
