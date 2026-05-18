@@ -113,6 +113,14 @@ func WithRequestHeader(key, value string) RequestOption {
 	}
 }
 
+// WithProvider selects the upstream the gateway forwards a Batch/Files
+// request to (the floopy-provider header). A batch carries no model up
+// front so the provider cannot be inferred — pass this, or rely on the
+// key's single configured provider. No-op for other resources.
+func WithProvider(provider string) RequestOption {
+	return WithRequestHeader(headerFloopyProvider, provider)
+}
+
 // WithRequestHeaders merges per-call headers (highest precedence).
 func WithRequestHeaders(h map[string]string) RequestOption {
 	return func(r *requestConfig) {

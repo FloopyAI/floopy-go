@@ -28,6 +28,7 @@ const (
 	headerPromptID           = "Floopy-Prompt-Id"
 	headerPromptVersion      = "Floopy-Prompt-Version"
 	headerLLMSecurityEnabled = "floopy-llm-security-enabled"
+	headerFloopyProvider     = "floopy-provider"
 	headerConfirm            = "X-Floopy-Confirm"
 	headerRequestID          = "X-Request-Id"
 	headerAuthorization      = "Authorization"
@@ -50,7 +51,14 @@ const (
 	endpointExportDecisions = "/export/decisions"
 	endpointRoutingExplain  = "/routing/explain"
 	endpointEvaluations     = "/evaluations"
+	endpointFiles           = "/files"
+	endpointBatches         = "/batches"
 )
+
+func fileByID(id string) string    { return endpointFiles + "/" + pathSeg(id) }
+func fileContent(id string) string { return endpointFiles + "/" + pathSeg(id) + "/content" }
+func batchByID(id string) string   { return endpointBatches + "/" + pathSeg(id) }
+func batchCancel(id string) string { return endpointBatches + "/" + pathSeg(id) + "/cancel" }
 
 // pathSeg percent-encodes a single path segment (matches JS
 // encodeURIComponent / Python urllib.parse.quote(safe="")).
