@@ -197,6 +197,35 @@ client.OpenAI().Chat.Completions.New(ctx, openai.ChatCompletionNewParams{
 })
 ```
 
+### `Files` and `Batches`
+
+OpenAI-shaped Batch + Files passthrough. A batch carries no model up
+front, so select the upstream with `floopy.WithProvider(...)` (the
+`floopy-provider` header) — optional when the key has one provider.
+
+```go
+file, _ := client.Files.Upload(ctx, floopy.FileUploadParams{
+	File: jsonl, Filename: "in.jsonl", Purpose: "batch",
+}, floopy.WithProvider("openai"))
+
+batch, _ := client.Batches.Create(ctx, floopy.BatchCreateParams{
+	InputFileID:      file.ID,
+	Endpoint:         "/v1/chat/completions",
+	CompletionWindow: "24h",
+}, floopy.WithProvider("openai"))
+
+done, _ := client.Batches.Get(ctx, batch.ID, floopy.WithProvider("openai"))
+if done.Status == "completed" && done.OutputFileID != nil {
+	out, _ := client.Files.Content(ctx, *done.OutputFileID, floopy.WithProvider("openai"))
+	_ = out // raw []byte
+}
+
+client.Batches.Cancel(ctx, batch.ID, floopy.WithProvider("openai"))
+client.Files.Delete(ctx, file.ID, floopy.WithProvider("openai"))
+```
+
+`Files.List`, `Files.Get`, and `Batches.List` are also available.
+
 ## Streaming
 
 `Chat` streaming is delegated to `openai-go`

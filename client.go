@@ -31,6 +31,10 @@ type Client struct {
 	Routing *RoutingService
 	// Sessions restores stored conversations.
 	Sessions *SessionsService
+	// Files manages Batch API input/output files.
+	Files *FilesService
+	// Batches manages asynchronous batch jobs.
+	Batches *BatchesService
 }
 
 // NewClient constructs a Floopy client. apiKey is required (starts with
@@ -64,6 +68,8 @@ func NewClient(apiKey string, opts ...ClientOption) (*Client, error) {
 	c.Evaluations = &EvaluationsService{tr}
 	c.Routing = &RoutingService{tr}
 	c.Sessions = &SessionsService{tr}
+	c.Files = &FilesService{tr}
+	c.Batches = &BatchesService{tr}
 	return c, nil
 }
 

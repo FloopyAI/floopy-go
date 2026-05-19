@@ -10,6 +10,7 @@ import (
 	"io"
 	"iter"
 	"math/rand/v2"
+	"mime/multipart"
 	"net/http"
 	"net/url"
 	"runtime"
@@ -136,6 +137,12 @@ func (t *transport) do(
 	if err != nil {
 		return "", err
 	}
+	return t.decodeJSON(resp, out)
+}
+
+// decodeJSON consumes resp (closing its body) and unmarshals a 2xx body
+// into out (nil discards it). Shared by do and doMultipart.
+func (t *transport) decodeJSON(resp *http.Response, out any) (string, error) {
 	defer resp.Body.Close()
 	requestID := resp.Header.Get(headerRequestID)
 	if resp.StatusCode == http.StatusNoContent || out == nil {
@@ -153,6 +160,65 @@ func (t *transport) do(
 		return requestID, &FloopyError{Message: "failed to decode gateway response: " + err.Error(), RequestID: requestID, cause: err}
 	}
 	return requestID, nil
+}
+
+// doBytes issues a request and returns the raw 2xx body (no JSON
+// decoding) — used to download file content.
+func (t *transport) doBytes(
+	ctx context.Context,
+	method, path string,
+	query map[string]string,
+	rc *requestConfig,
+) ([]byte, string, error) {
+	resp, err := t.requestRaw(ctx, method, path, nil, query, rc)
+	if err != nil {
+		return nil, "", err
+	}
+	defer resp.Body.Close()
+	requestID := resp.Header.Get(headerRequestID)
+	raw, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, requestID, newConnectionError("error reading Floopy gateway response", err)
+	}
+	return raw, requestID, nil
+}
+
+// doMultipart sends a multipart/form-data request (file upload): one file
+// part plus text fields. The JSON 2xx body is decoded into out.
+func (t *transport) doMultipart(
+	ctx context.Context,
+	method, path string,
+	fields map[string]string,
+	fileField, filename string,
+	content []byte,
+	out any,
+	rc *requestConfig,
+) (string, error) {
+	var buf bytes.Buffer
+	mw := multipart.NewWriter(&buf)
+	for k, v := range fields {
+		if err := mw.WriteField(k, v); err != nil {
+			return "", &FloopyError{Message: "failed to build multipart body: " + err.Error(), cause: err}
+		}
+	}
+	fw, err := mw.CreateFormFile(fileField, filename)
+	if err != nil {
+		return "", &FloopyError{Message: "failed to build multipart body: " + err.Error(), cause: err}
+	}
+	if _, err := fw.Write(content); err != nil {
+		return "", &FloopyError{Message: "failed to build multipart body: " + err.Error(), cause: err}
+	}
+	if err := mw.Close(); err != nil {
+		return "", &FloopyError{Message: "failed to build multipart body: " + err.Error(), cause: err}
+	}
+	u := t.buildURL(path, nil)
+	headers := t.buildRequestHeaders(rc)
+	headers[headerContentType] = mw.FormDataContentType()
+	resp, err := t.sendWithRetry(ctx, method, u, headers, buf.Bytes(), rc)
+	if err != nil {
+		return "", err
+	}
+	return t.decodeJSON(resp, out)
 }
 
 func (t *transport) requestRaw(
@@ -176,6 +242,16 @@ func (t *transport) requestRaw(
 			headers[headerContentType] = "application/json"
 		}
 	}
+	return t.sendWithRetry(ctx, method, u, headers, bodyBytes, rc)
+}
+
+func (t *transport) sendWithRetry(
+	ctx context.Context,
+	method, u string,
+	headers map[string]string,
+	bodyBytes []byte,
+	rc *requestConfig,
+) (*http.Response, error) {
 	timeout := t.timeoutFor(rc)
 
 	attempt := 0
