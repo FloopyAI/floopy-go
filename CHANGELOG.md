@@ -6,6 +6,14 @@ project adheres to [Semantic Versioning](https://semver.org/).
 
 Releases are produced by `release-please` from Conventional Commits.
 
+## [0.3.0](https://github.com/FloopyAI/floopy-go/compare/floopy-go-v0.2.1...floopy-go-v0.3.0) (2026-05-19)
+
+
+### Added
+
+* add Batch and Files API services ([19ef0ec](https://github.com/FloopyAI/floopy-go/commit/19ef0ec681160b7d41a81103cc753ab840c6e21d))
+* Batch and Files API ([04c7fda](https://github.com/FloopyAI/floopy-go/commit/04c7fdae70ef17e4424438018398cd5ae6febc97))
+
 ## [0.2.1](https://github.com/FloopyAI/floopy-go/compare/floopy-go-v0.2.0...floopy-go-v0.2.1) (2026-05-17)
 
 
