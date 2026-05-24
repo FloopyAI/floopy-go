@@ -1,5 +1,5 @@
-github.com/openai/openai-go/v3 v3.36.0 h1:PXYyY/v1S6WXGBEdFoNUFqKX7p3O5az2HMXklIeRXzk=
-github.com/openai/openai-go/v3 v3.36.0/go.mod h1:cdufnVK14cWcT9qA1rRtrXx4FTRsgbDPW7Ia7SS5cZo=
+github.com/openai/openai-go/v3 v3.37.0 h1:4OG68yZgnxZpwzebO+ZDUNkFJKKwKgzilMQq30nsouE=
+github.com/openai/openai-go/v3 v3.37.0/go.mod h1:cdufnVK14cWcT9qA1rRtrXx4FTRsgbDPW7Ia7SS5cZo=
 github.com/tidwall/gjson v1.14.2/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/gjson v1.18.0 h1:FIDeeyB800efLX89e5a8Y0BNH+LOngJyGrIWxG2FKQY=
 github.com/tidwall/gjson v1.18.0/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
