@@ -2,7 +2,7 @@ module github.com/FloopyAI/floopy-go
 
 go 1.23
 
-require github.com/openai/openai-go/v3 v3.36.0
+require github.com/openai/openai-go/v3 v3.39.0
 
 require (
 	github.com/tidwall/gjson v1.18.0 // indirect
