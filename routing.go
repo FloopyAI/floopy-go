@@ -31,16 +31,23 @@ type RoutingExplainParams struct {
 	Model       string
 	Messages    []openai.ChatCompletionMessageParamUnion
 	Temperature *float64
-	MaxTokens   *int
-	TopP        *float64
+	// MaxTokens is the legacy output-token cap. Prefer MaxCompletionTokens;
+	// the gateway coerces this into max_completion_tokens before forwarding
+	// to any OpenAI-compatible provider.
+	MaxTokens *int
+	// MaxCompletionTokens is the canonical output-token cap (the current
+	// OpenAI standard). Takes precedence over MaxTokens when both are set.
+	MaxCompletionTokens *int
+	TopP                *float64
 }
 
 type routingExplainBody struct {
-	Model       string                                   `json:"model"`
-	Messages    []openai.ChatCompletionMessageParamUnion `json:"messages"`
-	Temperature *float64                                 `json:"temperature,omitempty"`
-	MaxTokens   *int                                     `json:"max_tokens,omitempty"`
-	TopP        *float64                                 `json:"top_p,omitempty"`
+	Model               string                                   `json:"model"`
+	Messages            []openai.ChatCompletionMessageParamUnion `json:"messages"`
+	Temperature         *float64                                 `json:"temperature,omitempty"`
+	MaxTokens           *int                                     `json:"max_tokens,omitempty"`
+	MaxCompletionTokens *int                                     `json:"max_completion_tokens,omitempty"`
+	TopP                *float64                                 `json:"top_p,omitempty"`
 }
 
 // RoutingService exposes the routing dry-run.
