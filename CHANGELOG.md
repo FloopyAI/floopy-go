@@ -6,6 +6,14 @@ project adheres to [Semantic Versioning](https://semver.org/).
 
 Releases are produced by `release-please` from Conventional Commits.
 
+## [0.4.0](https://github.com/FloopyAI/floopy-go/compare/floopy-go-v0.3.0...floopy-go-v0.4.0) (2026-07-06)
+
+
+### Added
+
+* add MaxCompletionTokens to routing explain params ([23a30e6](https://github.com/FloopyAI/floopy-go/commit/23a30e6eccd2a7a679c4fe9196e9553236bb159b))
+* add MaxCompletionTokens to routing explain params ([038135e](https://github.com/FloopyAI/floopy-go/commit/038135e1c7b8f380ac45f8fd25a5388119978515))
+
 ## [0.3.0](https://github.com/FloopyAI/floopy-go/compare/floopy-go-v0.2.1...floopy-go-v0.3.0) (2026-05-19)
 
 
