@@ -6,7 +6,7 @@ go 1.23
 
 require (
 	github.com/FloopyAI/floopy-go v0.0.0
-	github.com/openai/openai-go/v3 v3.36.0
+	github.com/openai/openai-go/v3 v3.44.0
 )
 
 require (
