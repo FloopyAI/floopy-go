@@ -11,6 +11,17 @@ project adheres to [Semantic Versioning](https://semver.org/).
 
 Releases are produced by `release-please` from Conventional Commits.
 
+## [1.0.0](https://github.com/FloopyAI/floopy-go/compare/floopy-go-v0.4.0...floopy-go-v1.0.0) (2026-10-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* Go 1.25 or newer is now required by openai-go.
+
+### Added
+
+* expose native Responses API and upgrade OpenAI client ([367dac1](https://github.com/FloopyAI/floopy-go/commit/367dac1a73814623e551045fdef463fc19e906e6))
+
 ## [0.4.0](https://github.com/FloopyAI/floopy-go/compare/floopy-go-v0.3.0...floopy-go-v0.4.0) (2026-07-06)
 
 
