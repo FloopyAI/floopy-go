@@ -27,7 +27,7 @@ Floopy gateway, so:
 go get github.com/FloopyAI/floopy-go@latest
 ```
 
-Requires Go `>= 1.23` (range-over-func iterators).
+Requires Go `>= 1.25` (range-over-func iterators).
 
 ## Quick start
 
@@ -282,3 +282,9 @@ client, _ := floopy.NewClient(os.Getenv("FLOOPY_API_KEY"),
 ## License
 
 Apache-2.0 © Floopy
+
+## Responses API
+
+Use `client.Responses().New(...)` / `NewStreaming(...)` for native `POST /v1/responses`, including reasoning with function tools and typed streaming events. The delegate uses your Floopy base URL, API key and default gateway headers.
+
+This release uses openai-go/v3 v3.72.0 (requires Go 1.25+). Responses currently routes to compatible OpenAI targets through the existing gateway orchestration. Stateless text caching requires `store: false`; calls with tools or provider-managed history bypass cache. Background jobs and public response-management methods are not exposed by the gateway yet. See [Responses API documentation](https://docs.floopy.ai/docs/api/responses/).
