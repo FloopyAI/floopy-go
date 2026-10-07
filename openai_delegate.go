@@ -20,6 +20,8 @@ func newOpenAIDelegate(t *transport) *openai.Client {
 		option.WithAPIKey(t.apiKey),
 		option.WithBaseURL(t.baseURL),
 		option.WithHTTPClient(t.httpClient),
+		option.WithMaxRetries(t.maxRetries),
+		option.WithRequestTimeout(t.timeout),
 		option.WithHeader(headerFloopySDK, userAgentPrefix+"/"+Version),
 	}
 	for k, v := range headers {

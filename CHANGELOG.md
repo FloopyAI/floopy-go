@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Expose native Responses creation and streaming through the configured OpenAI delegate.
+- Upgrade to openai-go/v3 v3.72.0 (requires Go 1.25+).
+
 All notable changes to `floopy-go` are documented in this file. The format
 follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the
 project adheres to [Semantic Versioning](https://semver.org/).

@@ -4,6 +4,7 @@ import (
 	"sync"
 
 	"github.com/openai/openai-go/v3"
+	"github.com/openai/openai-go/v3/responses"
 )
 
 // Client is the Floopy gateway client. It wraps the official openai-go client
@@ -83,6 +84,9 @@ func (c *Client) OpenAI() *openai.Client {
 	})
 	return c.openaiClient
 }
+
+// Responses returns the native OpenAI Responses service with Floopy headers.
+func (c *Client) Responses() *responses.ResponseService { return &c.OpenAI().Responses }
 
 // BaseURL returns the resolved gateway base URL.
 func (c *Client) BaseURL() string { return c.transport.baseURL }
